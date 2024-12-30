@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class SanityException implements Exception {
   SanityException([
     this._message,

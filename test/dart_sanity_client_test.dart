@@ -1,4 +1,3 @@
-import 'package:dart_sanity_client/dart_sanity_client.dart';
 import 'package:test/test.dart';
 
 void main() async {

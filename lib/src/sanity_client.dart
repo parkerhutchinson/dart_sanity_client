@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import 'package:dart_sanity_client/src/http_response.dart';
 import 'package:dart_sanity_client/src/sanity_config.dart';
@@ -31,11 +29,6 @@ class DartSanityClient {
     final http.Response response = await httpClient.get(uri);
     httpClient.close();
     return _returnResponse(response);
-  }
-
-  dynamic _response(final String body) {
-    final responseJson = jsonDecode(body);
-    return responseJson['result'];
   }
 
   dynamic _returnResponse(http.Response response) {
