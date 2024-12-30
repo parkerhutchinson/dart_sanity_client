@@ -36,14 +36,3 @@ class FormatDataException extends SanityException {
   FormatDataException([String? message])
       : super(message, 'Error During Parsing: ');
 }
-
-class DecodeReponse {
-  factory DecodeReponse({required String responseBody}) {
-    try {
-      final responseJson = jsonDecode(responseBody);
-      return responseJson['result'];
-    } catch (exception) {
-      throw FetchDataException('Error occured while decoding response');
-    }
-  }
-}
