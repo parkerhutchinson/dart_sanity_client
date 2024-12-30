@@ -12,7 +12,9 @@ class URI_Builder<TConfig> {
     final int? devicePixelRatio,
     final int? quality,
     final String? format,
-  }) {}
+  }) {
+    return '$width.$height.$devicePixelRatio.$quality.$format';
+  }
 
   factory URI_Builder({URI_Type type = URI_Type.query}) {
     return _image('asdf');
