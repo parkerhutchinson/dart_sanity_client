@@ -7,6 +7,7 @@ class SanityConfig {
   final String? token;
   final bool useCdn;
   final String apiVersion;
+  final String? tag;
 
   // latest sanity http API version
   static final String defaultApiVersion = (() {
@@ -20,7 +21,8 @@ class SanityConfig {
     return 'v$parts';
   })();
 
-  // unlick the other client this does not require the token be present
+  // unlike the other client this does not require the token to be present
+  // sanity does not require the token if you have a public project.
   SanityConfig({
     required this.projectId,
     required this.dataset,
@@ -28,6 +30,7 @@ class SanityConfig {
     Perspective? perspective = Perspective.published,
     bool? useCdn = true,
     String? apiVersion,
+    this.tag,
   })  : useCdn = useCdn ?? true,
         apiVersion = apiVersion ?? defaultApiVersion,
         perspective = perspective ?? Perspective.raw {
