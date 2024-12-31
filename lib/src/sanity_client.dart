@@ -16,7 +16,7 @@ class DartSanityClient {
   Future<dynamic> fetch(String query) async {
     final Uri uri = URI_Builder(config: config).query(query);
     final http.Response response = await httpClient.get(uri);
-
+    ImageOptions();
     // we need this here otherwise the client hangs for a really long time
     httpClient.close();
     return _returnResponse(response);
