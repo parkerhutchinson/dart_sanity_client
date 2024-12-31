@@ -1,6 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'package:dart_sanity_client/src/http_response.dart';
 import 'package:dart_sanity_client/src/sanity_config.dart';
+import 'package:dart_sanity_client/src/assets.dart';
 import 'package:dart_sanity_client/src/uri_builder.dart';
 
 class DartSanityClient {
@@ -12,19 +13,29 @@ class DartSanityClient {
     final http.Client? httpClient,
     // we need to init the http client for it to actually work.
   }) : httpClient = httpClient ?? http.Client();
-
-  Future<dynamic> fetch(String query) async {
+  // groq queries
+  Future<dynamic> fetch(final String query) async {
     final Uri uri = URI_Builder(config: config).query(query);
     final http.Response response = await httpClient.get(uri);
-    ImageOptions();
-    // we need this here otherwise the client hangs for a really long time
     httpClient.close();
     return _returnResponse(response);
   }
 
-  Future<dynamic> create(String query) async {}
-  Future<dynamic> delete(String query) async {}
-  Future<dynamic> publish(String query) async {}
+  /// image asset queries
+  dynamic urlFor(
+    final String imageRef, {
+    final ImageOptions? options,
+  }) async {
+    final Uri uri =
+        URI_Builder(config: config).image(imageRef, options: options);
+    print(uri);
+
+    return uri;
+  }
+
+  Future<dynamic> create(final String query) async {}
+  Future<dynamic> delete(final String query) async {}
+  Future<dynamic> publish(final String query) async {}
 
   dynamic _returnResponse(http.Response response) {
     switch (response.statusCode) {
