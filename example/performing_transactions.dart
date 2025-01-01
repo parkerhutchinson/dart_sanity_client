@@ -21,6 +21,7 @@ void main() async {
   final publishT =
       PublishTransaction(publishedId: 'testing4', draftId: 'drafts.testing4');
 
-  final runTransaction = await client.transaction([createT, publishT]);
+  final deleteT = DeleteTransaction(publishedId: 'testing4');
+  final runTransaction = await client.transaction([deleteT]);
   print(runTransaction);
 }

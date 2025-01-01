@@ -6,7 +6,6 @@ import 'package:dart_sanity_client/src/http_response.dart';
 import 'package:dart_sanity_client/src/sanity_config.dart';
 import 'package:dart_sanity_client/src/assets.dart';
 import 'package:dart_sanity_client/src/uri_builder.dart';
-import 'package:dart_sanity_client/src/actions.dart';
 
 class DartSanityClient {
   final SanityConfig config;
@@ -25,7 +24,11 @@ class DartSanityClient {
     return _returnResponse(response);
   }
 
-  /// image and file asset url builder.
+  /// Image and File asset url builder. simply supply the image or file ref id and
+  /// it will spit back the proper cdn result. images support all of the options available
+  /// here: https://www.sanity.io/docs/image-urls#BhPyF4m0 except for dl and dlraw. since those would
+  /// require an actual browser. This might be added in the future if people request it.
+  /// you can always just append those parameters to the string to add that functionalty in adhoc.
   ///
   /// [String], [ImageOptions]
   dynamic urlFor(
@@ -46,7 +49,7 @@ class DartSanityClient {
     return uri;
   }
 
-  /// the transaction method simply runs an array of actions as a single transaction.
+  /// The transaction method simply runs an array of actions as a single transaction.
   /// this is how the sanity http API functions. you can do two things(or more) at once.
   /// create a draft and publish it in one step. This is handy especially when you are writting an app.
   ///
@@ -61,8 +64,10 @@ class DartSanityClient {
       throw Exception(
           "'token' in SanityConfig not set. Token with read/write access is required to run transactions.");
     }
-    final List<String> stringifyTransactions =
-        transaction.map((d) => jsonEncode(d.toJson())).toList();
+    final List<String> stringifyTransactions = transaction.map((d) {
+      d.removeWhere((key, value) => key == null || value == null);
+      return jsonEncode(d.toJson());
+    }).toList();
 
     /// I hate this but something funky happens when you try to convert a map to a string. it tries to escape all the quotes.
     /// need to come back to this because I just dont know the right way to process this.
