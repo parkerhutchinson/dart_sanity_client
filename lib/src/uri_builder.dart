@@ -7,6 +7,7 @@ class URI_Builder {
   SanityConfig config;
   URI_Builder({required this.config});
 
+  /// using the ref id of the image and provided parameter options construct a cdn path for the image asset.
   Uri image(final String refId, {final ImageOptions? options}) {
     return Uri(
       scheme: 'https',
@@ -24,7 +25,7 @@ class URI_Builder {
       scheme: 'https',
       host: 'cdn.sanity.io',
       path:
-          '/file/${config.projectId}/${config.dataset}/${FileDecoder.file(refId).asset}',
+          '/files/${config.projectId}/${config.dataset}/${FileDecoder.file(refId).asset}',
     );
   }
 

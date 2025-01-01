@@ -14,10 +14,16 @@ Future<dynamic> main() async {
     projectId: env['projectId'] ?? '',
   ));
 
-  // fetch query using GROQ
-  final results = client.urlFor(
+  /// using the image ref and provided options construct an image uri.
+  final imageResults = client.urlFor(
       'image-722dc750ee3a0e2c8e9763a66f3722c66edba6c0-909x1095-png',
-      options: ImageOptions(blur: 100));
+      options: ImageOptions(
+        blur: 100,
+        orientation: 90,
+      ));
+  final fileResults =
+      client.urlFor('file-447a8551ac3076fba419a02637ea49db068d45f3-pdf');
 
-  return results;
+  print(imageResults);
+  print(fileResults);
 }

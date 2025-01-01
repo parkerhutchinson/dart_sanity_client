@@ -1,3 +1,4 @@
+import 'package:dart_sanity_client/src/file_decoder.dart';
 import 'package:http/http.dart' as http;
 import 'package:dart_sanity_client/src/http_response.dart';
 import 'package:dart_sanity_client/src/sanity_config.dart';
@@ -23,12 +24,19 @@ class DartSanityClient {
 
   /// image asset queries
   dynamic urlFor(
-    final String imageRef, {
+    final String assetRef, {
     final ImageOptions? options,
-  }) async {
-    final Uri uri =
-        URI_Builder(config: config).image(imageRef, options: options);
-    print(uri);
+  }) {
+    Uri uri;
+
+    if (FileDecoder.type(assetRef) == "image") {
+      uri = URI_Builder(config: config).image(assetRef, options: options);
+    } else if (FileDecoder.type(assetRef) == "file") {
+      uri = URI_Builder(config: config).file(assetRef);
+    } else {
+      throw Exception(
+          'asset ref must be either file or image, neither was provided.');
+    }
 
     return uri;
   }

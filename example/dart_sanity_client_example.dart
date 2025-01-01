@@ -24,7 +24,7 @@ Future<dynamic> main() async {
     projectId: env['projectId'] ?? '',
   ));
 
-  final String query = '*[_type == "todo"]{image}';
+  final String query = '*[_type=="todo"]{file}';
   // fetch query using GROQ
   final results = await client.fetch(query);
 

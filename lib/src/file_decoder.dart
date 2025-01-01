@@ -48,4 +48,10 @@ class FileDecoder {
 
     return File(asset: '$id.$format', type: format);
   }
+
+  static String? type(final String ref) {
+    final parts = ref.split('-');
+
+    return parts[0];
+  }
 }
