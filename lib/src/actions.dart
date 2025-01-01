@@ -28,9 +28,14 @@ class Actions {
   }
 }
 
-enum Exists {
-  fail,
-  ignore,
+class Exists {
+  static String get fail {
+    return 'fail';
+  }
+
+  static String get ignore {
+    return 'ignore';
+  }
 }
 
 class CreateTransaction {
@@ -41,13 +46,13 @@ class CreateTransaction {
   final Map<String, dynamic> attributes;
 
   /// fail, ignore
-  final Exists ifExists;
+  final String? ifExists;
 
   CreateTransaction({
     required this.publishedId,
     required this.attributes,
-    this.ifExists = Exists.fail,
-  });
+    ifExists,
+  }) : ifExists = Exists.fail;
 
   static String get action {
     return Actions.create;

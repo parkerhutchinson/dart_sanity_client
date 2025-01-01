@@ -13,15 +13,23 @@ void main() async {
     projectId: env['projectId'] ?? '',
     token: env['tokenWrite'],
   ));
-  final createT = CreateTransaction(publishedId: 'testing4', attributes: {
-    "_id": "drafts.testing4",
-    "_type": "todo",
-    "title": "hello world!"
-  });
-  final publishT =
-      PublishTransaction(publishedId: 'testing4', draftId: 'drafts.testing4');
 
-  final deleteT = DeleteTransaction(publishedId: 'testing4');
-  final runTransaction = await client.transaction([deleteT]);
+  const pid = "testingTransactions";
+  const did = "drafts.$pid";
+
+  final createT = CreateTransaction(publishedId: pid, attributes: {
+    "_id": did,
+    "_type": "todo",
+    "title": "hello world!",
+  });
+  final publishT = PublishTransaction(publishedId: pid, draftId: did);
+  final editT = EditTransaction(publishedId: pid, draftId: did, patch: {
+    "set": {
+      "title": "new title",
+    }
+  });
+  final deleteT = DeleteTransaction(publishedId: pid);
+
+  final runTransaction = await client.transaction([publishT], dryRun: false);
   print(runTransaction);
 }
