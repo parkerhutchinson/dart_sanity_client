@@ -35,7 +35,7 @@ class DartSanityClient {
       uri = URI_Builder(config: config).file(assetRef);
     } else {
       throw Exception(
-          'asset ref must be either file or image, neither was provided.');
+          'asset ref must be either file or image, neither was provided. make sure the ref is properly formatted eg: file-asdf2233...-pdf or image-asdf2233...-200x200-jpg.');
     }
 
     return uri;

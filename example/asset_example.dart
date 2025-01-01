@@ -21,8 +21,13 @@ Future<dynamic> main() async {
         blur: 100,
         orientation: 90,
       ));
+
+  /// using a file ref get a file uri, options do nothing for files as they have no query options.
   final fileResults =
       client.urlFor('file-447a8551ac3076fba419a02637ea49db068d45f3-pdf');
+
+  final badResults =
+      client.urlFor('447a8551ac3076fba419a02637ea49db068d45f3-pdf');
 
   print(imageResults);
   print(fileResults);

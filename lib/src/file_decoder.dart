@@ -52,6 +52,6 @@ class FileDecoder {
   static String? type(final String ref) {
     final parts = ref.split('-');
 
-    return parts[0];
+    return parts.isNotEmpty ? parts[0] : null;
   }
 }
