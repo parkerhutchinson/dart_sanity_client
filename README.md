@@ -1,4 +1,4 @@
-<img width="256" alt="dart-sanity-client-logo" src="https://github.com/user-attachments/assets/077aa24d-ea9e-42da-b5d7-f2dfa16775f6" />
+<img width="128" alt="dart-sanity-client-logo" src="https://github.com/user-attachments/assets/077aa24d-ea9e-42da-b5d7-f2dfa16775f6" />
 
 # Dart Sanity Client
 
