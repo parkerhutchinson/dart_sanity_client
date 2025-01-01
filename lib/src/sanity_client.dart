@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dart_sanity_client/src/file_decoder.dart';
 import 'package:http/http.dart' as http;
 import 'package:dart_sanity_client/src/http_response.dart';
@@ -44,18 +46,44 @@ class DartSanityClient {
     return uri;
   }
 
-  Future<dynamic> transactions(
-    final List<CreateTransaction> transaction,
-    final bool dryRun,
-    final bool referenceValidation,
-    final String transactionId,
-  ) async {
-    final makeNewTodo = CreateTransaction(
-      publishedId: '',
-      attributes: {},
-    );
+  /// the transaction method simply runs an array of actions as a single transaction.
+  /// this is how the sanity http API functions. you can do two things(or more) at once.
+  /// create a draft and publish it in one step. This is handy especially when you are writting an app.
+  ///
+  ///
+  Future<dynamic> transaction(
+    final List<dynamic> transaction, {
+    bool dryRun = false,
+    bool referenceValidation = false,
+    String? transactionId,
+  }) async {
+    if (config.token == null) {
+      throw Exception(
+          "'token' in SanityConfig not set. Token with read/write access is required to run transactions.");
+    }
+    final List<String> stringifyTransactions =
+        transaction.map((d) => jsonEncode(d.toJson())).toList();
 
-    assert(config.token!.isNotEmpty, "'token' option in SanityConfig not set.");
+    /// I hate this but something funky happens when you try to convert a map to a string. it tries to escape all the quotes.
+    /// need to come back to this because I just dont know the right way to process this.
+    String actions =
+        '{"actions": $stringifyTransactions,"dryRun": $dryRun,"skipCrossDatasetReferenceValidation": $referenceValidation}';
+
+    if (transactionId != null) {
+      actions =
+          '{"actions": $stringifyTransactions,"dryRun": $dryRun,"skipCrossDatasetReferenceValidation": $referenceValidation, "transactionId": $transactionId}';
+    }
+    final Uri uri = URI_Builder(config: config).action();
+    final http.Response response = await httpClient.post(
+      uri,
+      headers: {
+        'Authorization': 'Bearer ${config.token}',
+        'content-type': 'application/json'
+      },
+      body: actions,
+    );
+    httpClient.close();
+    return _returnResponse(response);
   }
 
   dynamic _returnResponse(http.Response response) {

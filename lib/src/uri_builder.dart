@@ -7,6 +7,15 @@ class URI_Builder {
   SanityConfig config;
   URI_Builder({required this.config});
 
+  /// actions and transactions api
+  Uri action() {
+    return Uri(
+      scheme: 'https',
+      host: '${config.projectId}.api.sanity.io',
+      path: '/${config.apiVersion}/data/actions/${config.dataset}',
+    );
+  }
+
   /// using the ref id of the image and provided parameter options construct a cdn path for the image asset.
   Uri image(final String refId, {final ImageOptions? options}) {
     return Uri(

@@ -47,8 +47,30 @@ class CreateTransaction {
   static String get action {
     return Actions.create;
   }
+
+  Map<String, dynamic> toJson() => {
+        'publishedId': publishedId,
+        'attributes': attributes,
+        'actionType': Actions.create,
+      };
 }
 
-void main() {
-  final test = CreateTransaction(attributes: {}, publishedId: '');
+class PublishTransaction {
+  final String publishedId;
+  final String draftId;
+
+  PublishTransaction({
+    required this.publishedId,
+    required this.draftId,
+  });
+
+  static String get action {
+    return Actions.publish;
+  }
+
+  Map<String, dynamic> toJson() => {
+        'publishedId': publishedId,
+        'draftId': draftId,
+        'actionType': Actions.publish,
+      };
 }
