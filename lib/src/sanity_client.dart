@@ -22,7 +22,9 @@ class DartSanityClient {
     return _returnResponse(response);
   }
 
-  /// image asset queries
+  /// image and file asset url builder.
+  ///
+  /// [String], [ImageOptions]
   dynamic urlFor(
     final String assetRef, {
     final ImageOptions? options,
