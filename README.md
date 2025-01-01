@@ -1,3 +1,5 @@
+<img width="512" alt="dart-sanity-client-logo" src="https://github.com/user-attachments/assets/077aa24d-ea9e-42da-b5d7-f2dfa16775f6" />
+
 If you're like me and were disappointed to find that Sanity doesn't have an official Dart client, and underwhelmed by the alternatives available on pub.dev, this package is here to change that. It's designed to meet our needs and deliver a robust HTTP client experience. Expect full http support with not just fetch, but also create, edit, delete, publish, unpublish, replaceDraft, and discard.
 
 ## Features
