@@ -4,6 +4,7 @@ import 'package:dart_sanity_client/src/http_response.dart';
 import 'package:dart_sanity_client/src/sanity_config.dart';
 import 'package:dart_sanity_client/src/assets.dart';
 import 'package:dart_sanity_client/src/uri_builder.dart';
+import 'package:dart_sanity_client/src/actions.dart';
 
 class DartSanityClient {
   final SanityConfig config;
@@ -43,9 +44,19 @@ class DartSanityClient {
     return uri;
   }
 
-  Future<dynamic> create(final String query) async {}
-  Future<dynamic> delete(final String query) async {}
-  Future<dynamic> publish(final String query) async {}
+  Future<dynamic> transactions(
+    final List<CreateTransaction> transaction,
+    final bool dryRun,
+    final bool referenceValidation,
+    final String transactionId,
+  ) async {
+    final makeNewTodo = CreateTransaction(
+      publishedId: '',
+      attributes: {},
+    );
+
+    assert(config.token!.isNotEmpty, "'token' option in SanityConfig not set.");
+  }
 
   dynamic _returnResponse(http.Response response) {
     switch (response.statusCode) {

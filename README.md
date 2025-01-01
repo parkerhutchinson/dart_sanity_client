@@ -1,13 +1,13 @@
-If you're like me and were disappointed to find that Sanity doesn't have an official Dart client, and underwhelmed by the alternatives available on pub.dev, this package is here to change that. It's designed to meet our needs and deliver a robust HTTP client experience. Expect full http support with not just fetch, but also create, patch, publish, and delete.
+If you're like me and were disappointed to find that Sanity doesn't have an official Dart client, and underwhelmed by the alternatives available on pub.dev, this package is here to change that. It's designed to meet our needs and deliver a robust HTTP client experience. Expect full http support with not just fetch, but also create, edit, delete, publish, unpublish, replaceDraft, and discard.
 
 ## Features
 
 * full HTTP API support for sanity.io
-* fetch, create, patch, publish, and delete sanity object data.
+* fetch, edit, delete, publish, unpublish, replaceDraft, and discard sanity object data.
 * up to date client configuration options like perspective and tags.
 * optional token for fetch requests.
-* included cdn ref decoders. 
-* streamlined DX for optimal use.
+* included cdn ref decoders for file and image.
+* urlFor() method that nearly 1:1 mimics the JS client with full image option query support.
 
 ## Getting started
 
