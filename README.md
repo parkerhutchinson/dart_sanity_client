@@ -11,7 +11,7 @@ If you're like me and were disappointed to find that Sanity doesn't have an offi
 * up to date client configuration options like perspective and tags.
 * optional token for fetch requests.
 * included cdn ref decoders for file and image.
-* urlFor() method that nearly 1:1 mimics the JS client with full image option query support.
+* urlFor() method that nearly 1:1 mimics the JS client with full image parameter support.
 
 ## Getting started
 
