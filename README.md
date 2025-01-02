@@ -62,10 +62,29 @@ final client = DartSanityClient(
   })
 );
 
-final results = client.fetch('*[_type == "post"]{title}');
+final results = await client.fetch('*[_type == "post"]{title}');
 ```
 
 The client defaults to `apicdn.sanity.io` but you can opt out of this by setting apiCdn to `false`. 
+
+### Assets
+
+When writing groq queries you often get back asset refs instead of actually asset files. Or maybe you need to use the image api to manipulate the image to be blurry or rotated, `urlFor()` has you covered.
+
+```dart
+  /// passing in an image ref will return the proper
+  /// CDN url for the asset
+  final image = client.urlFor('image-adf124-200x200-jpg');
+  /// https://cdn.sanity.io/images/{projectid}/{dataset}/adf124.jpg
+
+  /// this works for files as well
+  final image = client.urlFor('file-adf124-pdf');
+  /// https://cdn.sanity.io/files/{projectId}/{dataset}/adf124.pdf
+
+  /// with images you can pass in parameters to manipulate the image in various ways
+  final blurImage = client.urlFor('image-adf124-200x200-jpg', options: ImageOptions(blur: 100));
+  /// description of each option can be found on sanity.io https://www.sanity.io/docs/image-urls#BhPyF4m0
+```
 
 ### Actions
 A major pillar of the http client is the actions API. You can perform a number of crud operations on your dataset. Running actions on a dataset is as easy as calling the `action` method on the client instance. Each action has its own constructor and actions can be performed in bulk thanks to how the API functions. 
@@ -86,7 +105,7 @@ A major pillar of the http client is the actions API. You can perform a number o
       token: env['token'],
     ),
   );
-  /// publishd ID
+  /// publish ID
   final String pid = 'foo';
   /// draft ID
   final String did = 'drafts.$pid';
