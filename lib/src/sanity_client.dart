@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:dart_sanity_client/src/file_decoder.dart';
 import 'package:http/http.dart' as http;
 import 'package:dart_sanity_client/src/http_response.dart';

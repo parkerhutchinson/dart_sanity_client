@@ -43,10 +43,28 @@ print(decodedResults["result"]);
 
 ## Usage
 
+**There are currently 3 main uses for this package:**
 
+1. using groq to fetch data from your dataset
+2. using the transaction method to perform crud operations like create, edit, publish, and delete.
+3. converting assets like files and images into urls you can use in your apps based on supplied sanity credentials.
+
+All operations are methods from the `DartSanityClient` client instance. 
 ```dart
-const tbd = 'tbd;
+import 'package:dart_sanity_client/dart_sanity_client.dart';
+
+final client = DartSanityClient(
+  SanityConfig({
+    dataset: 'yourdataset',
+    projectId: 'yourprojectid',
+  })
+);
+
+final results = client.fetch('*[_type == "post"]{title}');
 ```
+
+The client defaults to `apicdn.sanity.io` but you can opt out of this by setting apiCdn to `false`. 
+
 
 ## Additional information
 

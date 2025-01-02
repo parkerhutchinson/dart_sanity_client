@@ -1,41 +1,16 @@
 class Actions {
-  static String get create {
-    return 'sanity.action.document.create';
-  }
-
-  static String get delete {
-    return 'sanity.action.document.delete';
-  }
-
-  static String get discard {
-    return 'sanity.action.document.discard';
-  }
-
-  static String get edit {
-    return 'sanity.action.document.edit';
-  }
-
-  static String get replaceDraft {
-    return 'sanity.action.document.replaceDraft';
-  }
-
-  static String get publish {
-    return 'sanity.action.document.publish';
-  }
-
-  static String get unpublish {
-    return 'sanity.action.document.unpublish';
-  }
+  static String get create => 'sanity.action.document.create';
+  static String get delete => 'sanity.action.document.delete';
+  static String get discard => 'sanity.action.document.discard';
+  static String get edit => 'sanity.action.document.edit';
+  static String get replaceDraft => 'sanity.action.document.replaceDraft';
+  static String get publish => 'sanity.action.document.publish';
+  static String get unpublish => 'sanity.action.document.unpublish';
 }
 
 class Exists {
-  static String get fail {
-    return 'fail';
-  }
-
-  static String get ignore {
-    return 'ignore';
-  }
+  static String get fail => 'fail';
+  static String get ignore => 'ignore';
 }
 
 class CreateTransaction {
