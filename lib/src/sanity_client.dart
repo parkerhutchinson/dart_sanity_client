@@ -65,8 +65,6 @@ class DartSanityClient {
           "'token' in SanityConfig not set. Token with read/write access is required to run transactions.");
     }
     final List<String> stringifyTransactions = transaction.map((d) {
-      final data =
-          d.toJson().removeWhere((key, value) => key == null || value == null);
       return jsonEncode(d.toJson());
     }).toList();
 

@@ -33,7 +33,7 @@ class SanityConfig {
     this.tag,
   })  : useCdn = useCdn ?? true,
         apiVersion = apiVersion ?? defaultApiVersion,
-        perspective = perspective ?? Perspective.raw {
+        perspective = perspective ?? Perspective.published {
     assert(RegExp(r'^v\d{4}-\d{2}-\d{2}$').hasMatch(this.apiVersion),
         'Invalid API version provided. It should follow the format `vYYYY-MM-DD`');
   }

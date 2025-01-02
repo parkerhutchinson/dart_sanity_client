@@ -1,12 +1,11 @@
 name: dart_sanity_client
-description: A complete sanity.io http client. includes queries in grok and graphql. Has methods for fetch, create, patch, and publish.
-version: 1.0.0
-# repository: https://github.com/my_org/my_repo
+description: A complete sanity.io http client. includes queries in grok and graphql(soon). Has methods for fetch, create, patch, and publish.
+version: 0.1.0
+repository: https://github.com/parkerhutchinson/dart_sanity_client
 
 environment:
   sdk: ^3.6.0
 
-# Add regular dependencies here.
 dependencies:
   http: ^1.2.2
 
