@@ -17,18 +17,18 @@ void main() async {
   const pid = "testingTransactions";
   const did = "drafts.$pid";
 
-  final createT = CreateTransaction(publishedId: pid, attributes: {
-    "_id": did,
-    "_type": "todo",
-    "title": "hello world!",
-  });
+  // final createT = CreateTransaction(publishedId: pid, attributes: {
+  //   "_id": did,
+  //   "_type": "todo",
+  //   "title": "hello world!",
+  // });
   final publishT = PublishTransaction(publishedId: pid, draftId: did);
-  final editT = EditTransaction(publishedId: pid, draftId: did, patch: {
-    "set": {
-      "title": "new title",
-    }
-  });
-  final deleteT = DeleteTransaction(publishedId: pid);
+  // final editT = EditTransaction(publishedId: pid, draftId: did, patch: {
+  //   "set": {
+  //     "title": "new title",
+  //   }
+  // });
+  // final deleteT = DeleteTransaction(publishedId: pid);
 
   final runTransaction = await client.transaction([publishT], dryRun: false);
   print(runTransaction);
