@@ -19,10 +19,12 @@ Future<dynamic> main() async {
     ..load(['${current.path}/.env']);
 
   // client init
-  final client = DartSanityClient(SanityConfig(
-    dataset: env['dataset'] ?? '',
-    projectId: env['projectId'] ?? '',
-  ));
+  final client = DartSanityClient(
+    SanityConfig(
+      dataset: env['dataset'] ?? '',
+      projectId: env['projectId'] ?? '',
+    ),
+  );
 
   final String query = '*[_type=="todo"]{file}';
   // fetch query using GROQ

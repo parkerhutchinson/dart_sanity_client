@@ -46,8 +46,10 @@ print(decodedResults["result"]);
 **There are currently 3 main uses for this package:**
 
 1. using groq to fetch data from your dataset
-2. using the transaction method to perform crud operations like create, edit, publish, and delete.
+2. using the action method to perform crud operations like create, edit, publish, and delete.
 3. converting assets like files and images into urls you can use in your apps based on supplied sanity credentials.
+
+### Fetch
 
 All operations are methods from the `DartSanityClient` client instance. 
 ```dart
@@ -64,6 +66,50 @@ final results = client.fetch('*[_type == "post"]{title}');
 ```
 
 The client defaults to `apicdn.sanity.io` but you can opt out of this by setting apiCdn to `false`. 
+
+### Actions
+A major pillar of the http client is the actions API. You can perform a number of crud operations on your dataset. Running actions on a dataset is as easy as calling the `action` method on the client instance. Each action has its own constructor and actions can be performed in bulk thanks to how the API functions. 
+
+```dart
+  import 'package:dotenv/dotenv.dart';
+  /// highly suggest using some sort of dotfile loader for your credentials
+  Directory current = Directory.current;
+  final env = DotEnv(includePlatformEnvironment: true)
+    ..load(['${current.path}/.env']);
+
+  final client = DartSanityClient(
+    SanityConfig(
+      dataset: env['dataset'] ?? '',
+      projectId: env['projectId'] ?? '',
+      /// token is required for the action to function. you'll 
+      /// need to generate a token with write permsissions.
+      token: env['token'],
+    ),
+  );
+  /// publishd ID
+  final String pid = 'foo';
+  /// draft ID
+  final String did = 'drafts.$pid';
+  /// create a new post document with a title field. 
+  /// both `_id` an `_type` are required for create actions to function.
+  final createA = CreateAction(
+    publishedId: pid, 
+    attributes: {
+       "_id": pid,
+       "_type": "post",
+       "title": "hello world!",
+     },
+   );
+  final publishA = PublishAction(publishedId: pid, draftId: did);
+  /// actions are passed as an array. each action runs in sequence, 
+  /// but the transaction happens in a single operation.
+  /// here we create our post and publish it. setting dryRun 
+  /// to true will only validate the opteration will be successful.
+  /// If you receive a transaction id, then no errors were found and its safe 
+  /// to remove the dryRun parameter(defaults to false).
+  final runActions = await client.action([createA, publishA], dryRun: true); 
+
+```
 
 
 ## Additional information

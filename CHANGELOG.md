@@ -12,3 +12,9 @@
 ## 0.1.2
 
 - fixing documentation typos
+
+## 0.2.0
+
+- cleanup of static class getters
+- converted transaction to action to closer mimic sanity api
+- documentations updates
