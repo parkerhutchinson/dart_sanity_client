@@ -7,4 +7,8 @@
 
 ## 0.1.1
 
-- fixing documentation typo
+- fixing documentation typos
+
+## 0.1.2
+
+- fixing documentation typos
