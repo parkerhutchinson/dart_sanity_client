@@ -40,8 +40,10 @@ print(decodedResults["result"]);
 ```
 
 ## Usage
+
+
 ```dart
-const like = 'sample';
+const tbd = 'tbd;
 ```
 
 ## Additional information
