@@ -13,7 +13,7 @@ class Exists {
   static String get ignore => 'ignore';
 }
 
-class CreateTransaction {
+class CreateAction {
   /// "foo"
   final String publishedId;
 
@@ -23,7 +23,7 @@ class CreateTransaction {
   /// fail, ignore
   final String? ifExists;
 
-  CreateTransaction({
+  CreateAction({
     required this.publishedId,
     required this.attributes,
     ifExists,
@@ -41,14 +41,14 @@ class CreateTransaction {
       };
 }
 
-class PublishTransaction {
+class PublishAction {
   /// "foo"
   final String publishedId;
 
   /// "drafts.foo"
   final String draftId;
 
-  PublishTransaction({
+  PublishAction({
     required this.publishedId,
     required this.draftId,
   });
@@ -64,7 +64,7 @@ class PublishTransaction {
       };
 }
 
-class DeleteTransaction {
+class DeleteAction {
   /// "foo"
   final String publishedId;
 
@@ -72,7 +72,7 @@ class DeleteTransaction {
   final List<String>? includeDrafts;
 
   final bool purge;
-  DeleteTransaction({
+  DeleteAction({
     required this.publishedId,
     this.includeDrafts,
     this.purge = false,
@@ -89,7 +89,7 @@ class DeleteTransaction {
       };
 }
 
-class EditTransaction {
+class EditAction {
   /// "foo"
   final String publishedId;
 
@@ -99,7 +99,7 @@ class EditTransaction {
   /// {"set": {"name": "bar"}}
   final Map<String, dynamic> patch;
 
-  EditTransaction({
+  EditAction({
     required this.publishedId,
     required this.draftId,
     required this.patch,
@@ -117,7 +117,7 @@ class EditTransaction {
       };
 }
 
-class ReplaceDraftTransaction {
+class ReplaceDraftAction {
   /// "foo"
   final String publishedId;
 
@@ -125,7 +125,7 @@ class ReplaceDraftTransaction {
   /// {"_id": "drafts.foo", "_type": "post", "title": "hello world"}
   final Map<String, dynamic> attributes;
 
-  ReplaceDraftTransaction({
+  ReplaceDraftAction({
     required this.publishedId,
     required this.attributes,
   });
@@ -141,14 +141,14 @@ class ReplaceDraftTransaction {
       };
 }
 
-class UnpublishTransaction {
+class UnpublishAction {
   /// "foo"
   final String publishedId;
 
   /// "drafts.foo"
   final String draftId;
 
-  UnpublishTransaction({
+  UnpublishAction({
     required this.publishedId,
     required this.draftId,
   });

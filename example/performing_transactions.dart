@@ -22,7 +22,7 @@ void main() async {
   //   "_type": "todo",
   //   "title": "hello world!",
   // });
-  final publishT = PublishTransaction(publishedId: pid, draftId: did);
+  final publishT = PublishAction(publishedId: pid, draftId: did);
   // final editT = EditTransaction(publishedId: pid, draftId: did, patch: {
   //   "set": {
   //     "title": "new title",
@@ -30,6 +30,6 @@ void main() async {
   // });
   // final deleteT = DeleteTransaction(publishedId: pid);
 
-  final runTransaction = await client.transaction([publishT], dryRun: false);
+  final runTransaction = await client.action([publishT], dryRun: false);
   print(runTransaction);
 }

@@ -53,7 +53,7 @@ class DartSanityClient {
   /// create a draft and publish it in one step. This is handy especially when you are writting an app.
   ///
   ///
-  Future<dynamic> transaction(
+  Future<dynamic> action(
     final List<dynamic> transaction, {
     bool dryRun = false,
     bool referenceValidation = false,
