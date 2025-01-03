@@ -47,10 +47,13 @@ class PublishAction {
 
   /// "drafts.foo"
   final String draftId;
-
+  final String? ifDraftRevisionId;
+  final String? ifPublishedRevisionId;
   PublishAction({
     required this.publishedId,
     required this.draftId,
+    this.ifPublishedRevisionId,
+    this.ifDraftRevisionId,
   });
 
   static String get action {
@@ -61,6 +64,9 @@ class PublishAction {
         'publishedId': publishedId,
         'draftId': draftId,
         'actionType': Actions.publish,
+        if (ifPublishedRevisionId != null)
+          'ifPublishedRevisionId': ifPublishedRevisionId,
+        if (ifDraftRevisionId != null) 'ifDraftRevisionId': ifDraftRevisionId
       };
 }
 
@@ -85,7 +91,8 @@ class DeleteAction {
   Map<String, dynamic> toJson() => {
         'publishedId': publishedId,
         'actionType': Actions.delete,
-        'purge': purge
+        'purge': purge,
+        if (includeDrafts != null) 'includeDrafts': includeDrafts
       };
 }
 
