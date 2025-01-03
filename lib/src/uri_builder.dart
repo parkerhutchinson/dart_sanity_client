@@ -16,7 +16,7 @@ class URI_Builder {
     );
   }
 
-  /// using the ref id of the image and provided parameter options construct a cdn path for the image asset.
+  /// using the ref id of the image or file and provided parameter options construct a cdn path for the image or file asset.
   Uri image(final String refId, {final ImageOptions? options}) {
     return Uri(
       scheme: 'https',
@@ -38,7 +38,7 @@ class URI_Builder {
     );
   }
 
-  // static _query()
+  // used for fetch
   Uri query(
     String query, {
     Map<String, dynamic>? params,

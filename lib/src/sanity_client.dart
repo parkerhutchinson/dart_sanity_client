@@ -28,8 +28,6 @@ class DartSanityClient {
   /// here: https://www.sanity.io/docs/image-urls#BhPyF4m0 except for dl and dlraw. since those would
   /// require an actual browser. This might be added in the future if people request it.
   /// you can always just append those parameters to the string to add that functionalty in adhoc.
-  ///
-  /// [String], [ImageOptions]
   dynamic urlFor(
     final String assetRef, {
     final ImageOptions? options,
@@ -51,8 +49,6 @@ class DartSanityClient {
   /// The transaction method simply runs an array of actions as a single transaction.
   /// this is how the sanity http API functions. you can do two things(or more) at once.
   /// create a draft and publish it in one step. This is handy especially when you are writting an app.
-  ///
-  ///
   Future<dynamic> action(
     final List<dynamic> transaction, {
     bool dryRun = false,
@@ -67,14 +63,23 @@ class DartSanityClient {
       return jsonEncode(d.toJson());
     }).toList();
 
-    /// I hate this but something funky happens when you try to convert a map to a string. it tries to escape all the quotes.
-    /// need to come back to this because I just dont know the right way to process this.
-    String actions =
-        '{"actions": $stringifyTransactions,"dryRun": $dryRun,"skipCrossDatasetReferenceValidation": $referenceValidation}';
+    /// I hate this but something funky happens when you try to convert a map to a string.
+    /// it tries to escape all the quotes. need to come back to this because I just
+    /// dont know the right way to process this.
+    String actions = '''{
+        "actions": $stringifyTransactions,
+        "dryRun": $dryRun,
+        "skipCrossDatasetReferenceValidation": $referenceValidation
+        }
+        ''';
 
     if (transactionId != null) {
-      actions =
-          '{"actions": $stringifyTransactions,"dryRun": $dryRun,"skipCrossDatasetReferenceValidation": $referenceValidation, "transactionId": $transactionId}';
+      actions = '''{
+          "actions": $stringifyTransactions,
+          "dryRun": $dryRun,
+          "skipCrossDatasetReferenceValidation": $referenceValidation, 
+          "transactionId": $transactionId
+          }''';
     }
     final Uri uri = URI_Builder(config: config).action();
     final http.Response response = await httpClient.post(
