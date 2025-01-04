@@ -43,4 +43,4 @@ jobs:
           token: ${{secrets.SANITY_WRITE_TOKEN}}
           projectId: ${{secrets.SANITY_ID}}
           dataset: ${{secrets.SANITY_DATASET}}
-        run: dart test
+        run: dart test -r expanded
