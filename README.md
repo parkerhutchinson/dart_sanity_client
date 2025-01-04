@@ -128,9 +128,7 @@ A major pillar of the http client is the actions API. You can perform a number o
 
 ```
 
-see this for a full list of actions you can use with this package https://www.sanity.io/docs/http-actions#5e9fc8d16fe1
+see the official docs for a full list of actions you can use with this package https://www.sanity.io/docs/http-actions#5e9fc8d16fe1
 
-
-## Additional information
 
 

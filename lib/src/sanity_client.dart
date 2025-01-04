@@ -19,7 +19,6 @@ class DartSanityClient {
   Future<dynamic> fetch(final String query) async {
     final Uri uri = URI_Builder(config: config).query(query);
     final http.Response response = await httpClient.get(uri);
-    httpClient.close();
     return _returnResponse(response);
   }
 
@@ -90,7 +89,6 @@ class DartSanityClient {
       },
       body: actions,
     );
-    httpClient.close();
     return _returnResponse(response);
   }
 

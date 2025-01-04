@@ -26,9 +26,11 @@ Future<dynamic> main() async {
     ),
   );
 
-  final String query = '*[_type=="todo"]{file}';
+  final String query = 'asdf';
   // fetch query using GROQ
   final results = await client.fetch(query);
+  final resultsTwo = await client.fetch(query);
 
   prettyPrintJson(results);
+  prettyPrintJson(resultsTwo);
 }
