@@ -18,3 +18,12 @@
 - cleanup of static class getters
 - converted transaction to action to closer mimic sanity api
 - documentations updates
+
+## 0.3.0
+
+*bugs*
+- fixed issue where urlFor was not returning an actually string url like it was suppose to.
+- fixed issue where multiple requests of the same fetch failed due to closing the http client.
+
+*new*
+- added in unit some unit tests which led to the discovery of above bugs.
