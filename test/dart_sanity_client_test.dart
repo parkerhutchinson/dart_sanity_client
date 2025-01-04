@@ -45,5 +45,14 @@ void main() async {
       expect(imageResult,
           'https://cdn.sanity.io/images/9czgqdka/production/722dc750ee3a0e2c8e9763a66f3722c66edba6c0-909x1095.png');
     });
+    test('get asset file', () async {
+      final queryResults = await client.fetch('*[_type == "todo"]{file}');
+      final resultsObj = jsonDecode(queryResults);
+      final imageResult =
+          client.urlFor(resultsObj['result'][0]['file']['asset']['_ref']);
+      print(imageResult);
+      expect(imageResult,
+          'https://cdn.sanity.io/images/9czgqdka/production/722dc750ee3a0e2c8e9763a66f3722c66edba6c0-909x1095.png');
+    });
   });
 }
