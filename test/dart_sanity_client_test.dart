@@ -11,14 +11,19 @@ void main() async {
     ..load(['${current.path}/.env']);
 
   /// client cache
-  final client = DartSanityClient(SanityConfig(
-    dataset: env['dataset'] ?? '',
-    projectId: env['projectId'] ?? '',
-  ));
+  final DartSanityClient client = DartSanityClient(
+    SanityConfig(
+      dataset: env['dataset'] ?? '',
+      projectId: env['projectId'] ?? '',
+    ),
+  );
+
+  final String postType = "todo";
 
   /// results cache
-  final results = await client.fetch('*[_type == "todo"]{title,image,file}');
-  final resultsObj = jsonDecode(results);
+  final dynamic results =
+      await client.fetch('*[_type == $postType]{title,image,file}');
+  final Map<String, dynamic> resultsObj = jsonDecode(results);
 
   group('fetch:', () {
     test('simple fetch', () async {
@@ -27,12 +32,14 @@ void main() async {
   });
   group('Client:', () {
     test('bad credentials', () async {
-      final clientFail = DartSanityClient(SanityConfig(
+      final DartSanityClient clientFail = DartSanityClient(
+        SanityConfig(
           dataset: env['dataset'] ?? '',
-          projectId: '' // omit the projecid to force the client to fail,
-          ));
+          projectId: '',
+        ),
+      );
       try {
-        await clientFail.fetch('*[_type == "todo"]{title}');
+        await clientFail.fetch('*[_type == $postType]');
       } on ClientException catch (e) {
         expect(e.message, 'Failed host lookup: \'.apicdn.sanity.io\'');
       }
@@ -41,13 +48,13 @@ void main() async {
 
   group('Assets:', () {
     test('get asset image', () async {
-      final imageResult =
+      final String imageResult =
           client.urlFor(resultsObj['result'][0]['image']['asset']['_ref']);
       expect(imageResult,
           'https://cdn.sanity.io/images/9czgqdka/production/722dc750ee3a0e2c8e9763a66f3722c66edba6c0-909x1095.png');
     });
     test('get asset file', () async {
-      final fileResult =
+      final String fileResult =
           client.urlFor(resultsObj['result'][0]['file']['asset']['_ref']);
       expect(fileResult,
           'https://cdn.sanity.io/files/9czgqdka/production/447a8551ac3076fba419a02637ea49db068d45f3.pdf');
