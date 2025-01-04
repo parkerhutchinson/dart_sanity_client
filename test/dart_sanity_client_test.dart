@@ -4,7 +4,6 @@ import 'package:dart_sanity_client/dart_sanity_client.dart';
 import 'package:dotenv/dotenv.dart';
 import 'package:http/http.dart';
 import 'package:test/test.dart';
-import 'package:dart_sanity_client/src/http_response.dart';
 
 void main() async {
   Directory current = Directory.current;
