@@ -19,7 +19,7 @@ Future<dynamic> main() async {
     ..load(['${current.path}/.env']);
 
   // client init
-  final client = DartSanityClient(
+  final DartSanityClient client = DartSanityClient(
     SanityConfig(
       dataset: env['dataset'] ?? '',
       projectId: env['projectId'] ?? '',
@@ -28,9 +28,7 @@ Future<dynamic> main() async {
 
   final String query = 'asdf';
   // fetch query using GROQ
-  final results = await client.fetch(query);
-  final resultsTwo = await client.fetch(query);
+  final dynamic results = await client.fetch(query);
 
   prettyPrintJson(results);
-  prettyPrintJson(resultsTwo);
 }
