@@ -42,7 +42,7 @@ class DartSanityClient {
           'asset ref must be either file or image, neither was provided. make sure the ref is properly formatted eg: file-asdf2233...-pdf or image-asdf2233...-200x200-jpg.');
     }
 
-    return uri;
+    return uri.toString();
   }
 
   /// The transaction method simply runs an array of actions as a single transaction.

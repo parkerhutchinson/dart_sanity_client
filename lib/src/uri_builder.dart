@@ -23,7 +23,7 @@ class URI_Builder {
       host: 'cdn.sanity.io',
       path:
           '/images/${config.projectId}/${config.dataset}/${FileDecoder.image(refId).asset}',
-      queryParameters: options!.map(),
+      queryParameters: options?.map(),
     );
   }
 
