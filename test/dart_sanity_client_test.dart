@@ -10,49 +10,47 @@ void main() async {
   final env = DotEnv(includePlatformEnvironment: true)
     ..load(['${current.path}/.env']);
 
-  group('fetch groq', () {
+  /// client cache
+  final client = DartSanityClient(SanityConfig(
+    dataset: env['dataset'] ?? '',
+    projectId: env['projectId'] ?? '',
+  ));
+
+  /// results cache
+  final results = await client.fetch('*[_type == "todo"]{title,image,file}');
+  final resultsObj = jsonDecode(results);
+
+  group('fetch:', () {
     test('simple fetch', () async {
-      final client = DartSanityClient(SanityConfig(
-        dataset: env['dataset'] ?? '',
-        projectId: env['projectId'] ?? '',
-      ));
-      final String results = await client.fetch('*[_type == "todo"]{title}');
-      final resultsObject = jsonDecode(results);
-      expect(resultsObject['result'][0]["title"], "testing dart sanity client");
+      expect(resultsObj['result'][0]["title"], "testing dart sanity client");
     });
+  });
+  group('Client:', () {
     test('bad credentials', () async {
-      final client = DartSanityClient(SanityConfig(
+      final clientFail = DartSanityClient(SanityConfig(
           dataset: env['dataset'] ?? '',
           projectId: '' // omit the projecid to force the client to fail,
           ));
       try {
-        await client.fetch('*[_type == "todo"]{title}');
+        await clientFail.fetch('*[_type == "todo"]{title}');
       } on ClientException catch (e) {
         expect(e.message, 'Failed host lookup: \'.apicdn.sanity.io\'');
       }
     });
   });
-  group('Assets', () {
-    final client = DartSanityClient(SanityConfig(
-      dataset: env['dataset'] ?? '',
-      projectId: env['projectId'] ?? '',
-    ));
+
+  group('Assets:', () {
     test('get asset image', () async {
-      final queryResults = await client.fetch('*[_type == "todo"]{image}');
-      final resultsObj = jsonDecode(queryResults);
       final imageResult =
           client.urlFor(resultsObj['result'][0]['image']['asset']['_ref']);
       expect(imageResult,
           'https://cdn.sanity.io/images/9czgqdka/production/722dc750ee3a0e2c8e9763a66f3722c66edba6c0-909x1095.png');
     });
     test('get asset file', () async {
-      final queryResults = await client.fetch('*[_type == "todo"]{file}');
-      final resultsObj = jsonDecode(queryResults);
-      final imageResult =
+      final fileResult =
           client.urlFor(resultsObj['result'][0]['file']['asset']['_ref']);
-      print(imageResult);
-      expect(imageResult,
-          'https://cdn.sanity.io/images/9czgqdka/production/722dc750ee3a0e2c8e9763a66f3722c66edba6c0-909x1095.png');
+      expect(fileResult,
+          'https://cdn.sanity.io/files/9czgqdka/production/447a8551ac3076fba419a02637ea49db068d45f3.pdf');
     });
   });
 }
