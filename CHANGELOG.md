@@ -26,4 +26,4 @@
 - fixed issue where multiple requests of the same fetch failed due to closing the http client.
 
 *new*
-- added in unit some unit tests which led to the discovery of above bugs.
+- added in some unit tests which led to the discovery of above bugs.
