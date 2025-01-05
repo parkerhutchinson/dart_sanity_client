@@ -22,7 +22,7 @@ void main() async {
 
   /// results cache
   final dynamic results =
-      await client.fetch('*[_type == $postType]{title,image,file}');
+      await client.fetch('*[_type == "$postType"]{title,image,file}');
   final Map<String, dynamic> resultsObj = jsonDecode(results);
 
   group('fetch:', () {

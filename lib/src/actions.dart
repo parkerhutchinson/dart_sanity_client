@@ -1,18 +1,37 @@
+/// static class getter for action types
 class Actions {
+  /// create action api value
   static String get create => 'sanity.action.document.create';
+
+  /// delete action api value
   static String get delete => 'sanity.action.document.delete';
+
+  /// discard action api value
   static String get discard => 'sanity.action.document.discard';
+
+  /// edit action api value
   static String get edit => 'sanity.action.document.edit';
+
+  /// replaceDraft action api value
   static String get replaceDraft => 'sanity.action.document.replaceDraft';
+
+  /// publish action api value
   static String get publish => 'sanity.action.document.publish';
+
+  /// unpublish action api value
   static String get unpublish => 'sanity.action.document.unpublish';
 }
 
+/// static class getter for ifExists property
 class Exists {
+  /// ifExists const value
   static String get fail => 'fail';
+
+  /// ifExists const value
   static String get ignore => 'ignore';
 }
 
+/// create sanity document using attributes(fields)
 class CreateAction {
   /// "foo"
   final String publishedId;
@@ -23,16 +42,18 @@ class CreateAction {
   /// fail, ignore
   final String? ifExists;
 
+  /// constructor
   CreateAction({
     required this.publishedId,
     required this.attributes,
     ifExists,
   }) : ifExists = Exists.fail;
-
+  // ignore: public_member_api_docs
   static String get action {
     return Actions.create;
   }
 
+  // ignore: public_member_api_docs
   Map<String, dynamic> toJson() => {
         'publishedId': publishedId,
         'attributes': attributes,
@@ -41,6 +62,7 @@ class CreateAction {
       };
 }
 
+/// publish sanity document
 class PublishAction {
   /// "foo"
   final String publishedId;
@@ -49,17 +71,20 @@ class PublishAction {
   final String draftId;
   final String? ifDraftRevisionId;
   final String? ifPublishedRevisionId;
+
+  /// constructor
   PublishAction({
     required this.publishedId,
     required this.draftId,
     this.ifPublishedRevisionId,
     this.ifDraftRevisionId,
   });
-
+  // ignore: public_member_api_docs
   static String get action {
     return Actions.publish;
   }
 
+  // ignore: public_member_api_docs
   Map<String, dynamic> toJson() => {
         'publishedId': publishedId,
         'draftId': draftId,
@@ -70,6 +95,7 @@ class PublishAction {
       };
 }
 
+/// delete sanity document
 class DeleteAction {
   /// "foo"
   final String publishedId;
@@ -77,17 +103,21 @@ class DeleteAction {
   /// ["drafts.foo", "drafts.bar"]
   final List<String>? includeDrafts;
 
+  /// purges cdn cache
   final bool purge;
+
+  /// constructor
   DeleteAction({
     required this.publishedId,
     this.includeDrafts,
     this.purge = false,
   });
-
+  // ignore: public_member_api_docs
   static String get action {
     return Actions.delete;
   }
 
+  // ignore: public_member_api_docs
   Map<String, dynamic> toJson() => {
         'publishedId': publishedId,
         'actionType': Actions.delete,
@@ -96,6 +126,7 @@ class DeleteAction {
       };
 }
 
+/// edit sanity document
 class EditAction {
   /// "foo"
   final String publishedId;
@@ -106,16 +137,18 @@ class EditAction {
   /// {"set": {"name": "bar"}}
   final Map<String, dynamic> patch;
 
+  /// constructor
   EditAction({
     required this.publishedId,
     required this.draftId,
     required this.patch,
   });
-
+  // ignore: public_member_api_docs
   static String get action {
     return Actions.edit;
   }
 
+  // ignore: public_member_api_docs
   Map<String, dynamic> toJson() => {
         'publishedId': publishedId,
         'draftId': draftId,
@@ -124,6 +157,7 @@ class EditAction {
       };
 }
 
+/// replace existing draft with a new draft
 class ReplaceDraftAction {
   /// "foo"
   final String publishedId;
@@ -132,15 +166,18 @@ class ReplaceDraftAction {
   /// {"_id": "drafts.foo", "_type": "post", "title": "hello world"}
   final Map<String, dynamic> attributes;
 
+  /// constructor
   ReplaceDraftAction({
     required this.publishedId,
     required this.attributes,
   });
 
+  // ignore: public_member_api_docs
   static String get action {
     return Actions.replaceDraft;
   }
 
+  // ignore: public_member_api_docs
   Map<String, dynamic> toJson() => {
         'publishedId': publishedId,
         'attributes': attributes,
@@ -148,6 +185,7 @@ class ReplaceDraftAction {
       };
 }
 
+/// unpublish existing sanity document
 class UnpublishAction {
   /// "foo"
   final String publishedId;
@@ -155,15 +193,18 @@ class UnpublishAction {
   /// "drafts.foo"
   final String draftId;
 
+  /// constructor
   UnpublishAction({
     required this.publishedId,
     required this.draftId,
   });
 
+  // ignore: public_member_api_docs
   static String get action {
     return Actions.unpublish;
   }
 
+  // ignore: public_member_api_docs
   Map<String, dynamic> toJson() => {
         'publishedId': publishedId,
         'draftId': draftId,

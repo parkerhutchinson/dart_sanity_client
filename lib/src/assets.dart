@@ -1,4 +1,4 @@
-/// fill, fillMax, crop, clip, scale, min, max
+/// optional parameter enum for setting the image fill values.
 enum Fit {
   fill,
   fillMax,
@@ -9,35 +9,72 @@ enum Fit {
   max,
 }
 
+/// optional parameter enum for flipping the image.
 enum Flip {
+  /// flip image horizontally
   h,
+
+  /// flip image vertically
   v,
+
+  /// flip image horizontally and vertically
   hv,
 }
 
+/// optional parameter enum to set crop position relative to image dimensions.
 enum CropPosition {
+  /// left aligned crop position
   left,
+
+  /// top aligned crop position
   top,
+
+  /// right aligned crop position
   right,
+
+  /// bottom aligned crop position
   bottom,
+
+  /// center aligned crop position
   center,
+
+  /// focalpoint aligned crop position
   focalpoint,
+
+  /// approx aligned crop position based on image composition
   entropy,
 }
 
+/// optional parameter enum for setting image format
 enum Format {
+  /// jpg image format
   jpg,
+
+  /// pjpg image format
   pjpg,
+
+  /// png image format
   png,
+
+  /// webp image format
   webp,
 }
 
 /// pixel dimensions for when crop is supplied.
 class ImageCrop {
+  /// image width in pixels
   final int width;
+
+  /// image height in pixels
   final int height;
+
+  /// image position left in pixels
   final int left;
+
+  /// image position top in pixels
   final int top;
+
+  /// imagecrop constructor
   ImageCrop({
     required this.width,
     required this.height,
@@ -47,7 +84,7 @@ class ImageCrop {
 }
 
 class ImageOptions {
-  late Map<String, dynamic> parameters = {};
+  late final Map<String, dynamic> _parameters = {};
   final int? width;
   final int? height;
   final int? blur;
@@ -136,9 +173,9 @@ class ImageOptions {
         value = -100;
       }
       if (value != null) {
-        parameters[key] = '$value';
+        _parameters[key] = '$value';
       }
     }
-    return parameters;
+    return _parameters;
   }
 }
