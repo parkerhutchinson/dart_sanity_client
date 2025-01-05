@@ -1,15 +1,40 @@
-enum Perspective { published, previewDrafts, raw }
+/// sanity perspective enum
+enum Perspective {
+  /// get all published documents
+  published,
 
+  /// get all published and unpublished documents
+  previewDrafts,
+
+  /// get all published, unpublished, and meta information
+  raw,
+}
+
+/// Sanity API configuration object
 class SanityConfig {
+  /// sanity projectId: asdf124
   final String projectId;
+
+  /// sanity dataset: production
   final String dataset;
+
+  /// sanity perspective(defaults to Perspective.published)
   final Perspective perspective;
+
+  /// API authenticated token
   final String? token;
+
+  /// sets the fetch host to be apicdn.sanity.io if true
+  /// otherwise it sets it to api.sanity.io if false
   final bool useCdn;
+
+  /// yyyy-mm-dd api version number
   final String apiVersion;
+
+  /// sets a tag to all queries
   final String? tag;
 
-  // latest sanity http API version
+  /// latest sanity http API version
   static final String defaultApiVersion = (() {
     final today = DateTime.now();
     final parts = [
@@ -21,8 +46,7 @@ class SanityConfig {
     return 'v$parts';
   })();
 
-  // unlike the other client this does not require the token to be present
-  // sanity does not require the token if you have a public project.
+  /// Sanity config constructor
   SanityConfig({
     required this.projectId,
     required this.dataset,

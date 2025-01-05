@@ -1,11 +1,24 @@
 /// optional parameter enum for setting the image fill values.
 enum Fit {
+  /// fill bounds
   fill,
+
+  /// maximum fill bounds
   fillMax,
+
+  /// fill to crop dimensions
   crop,
+
+  /// fill to clip dimensions
   clip,
+
+  /// scale to width and height
   scale,
+
+  /// minimum fill
   min,
+
+  /// maximum fill
   max,
 }
 
@@ -83,30 +96,78 @@ class ImageCrop {
   });
 }
 
+/// image parameter settings
 class ImageOptions {
   late final Map<String, dynamic> _parameters = {};
+
+  /// image width in pixels
   final int? width;
+
+  /// image height in pixels
   final int? height;
+
+  /// blur value 0 - 200
   final int? blur;
+
+  /// hex color to set the background: #FFFFFF
   final String? backgroundColor;
+
+  /// crop alignment position relative to image dimensions
   final CropPosition? cropPosition;
+
+  /// image DPI
   final String? devicePixelRatio;
+
+  /// scale image in various ways to the suplied width an height
   final Fit? fit;
+
+  /// transform the image to flip vertical or horizontal or both
   final Flip? flip;
+
+  /// meta information for the focal position X
   final double? focalPointX;
+
+  /// meta information for the focal position Y
   final double? focalPointy;
+
+  /// manually set the format to jpg, pjpg, png, or webp
   final Format? format;
+
+  /// invert the image
   final bool? invert;
+
+  ///
   final int? frame;
+
+  /// maximum height of the image in pixels
   final int? maxHeight;
+
+  /// maximum width of the image in pixels
   final int? maxWidth;
+
+  /// minimum width of the image in pixels
   final int? minWidth;
+
+  /// minimum height of the image in pixels
   final int? minHeight;
+
+  /// sets the image rotation in degress 0, 90, 180, 270 are the only supported values
   final int? orientation;
+
+  /// this is listed as "sat" in sanity docs. but the value makes no sense so this
+  /// sets the sat to the only value it can be which is greyscale.
   final bool? greyscale;
+
+  /// image quality from 0 - 100
   final int? quality;
+
+  /// adds padding around the image pushing it inward.
   final int? padding;
+
+  /// used when setting the fit value to Fit.crop
   final ImageCrop? cropDimensions;
+
+  /// image sharpness from 0 - 100
   final int? sharp;
 
   /// sanity image query options https://www.sanity.io/docs/image-urls#dpr-d2055ee879ac
@@ -139,6 +200,7 @@ class ImageOptions {
     this.sharp,
   });
 
+  /// converts the option data to a map
   Map<String, dynamic> map() {
     final optionsMap = {
       'w': width,
