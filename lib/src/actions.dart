@@ -69,7 +69,11 @@ class PublishAction {
 
   /// "drafts.foo"
   final String draftId;
+
+  /// optonal Id for revision locking see: https://www.sanity.io/docs/http-actions#69d975d3725c
   final String? ifDraftRevisionId;
+
+  /// optonal Id for revision locking see: https://www.sanity.io/docs/http-actions#69d975d3725c
   final String? ifPublishedRevisionId;
 
   /// constructor
