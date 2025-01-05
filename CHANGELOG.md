@@ -27,3 +27,8 @@
 
 *new*
 - added in some unit tests which led to the discovery of above bugs.
+
+## 0.3.1
+
+- added all missing api documentation
+- fixed all linting warnings
