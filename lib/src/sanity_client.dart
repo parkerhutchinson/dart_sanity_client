@@ -6,16 +6,21 @@ import 'package:dart_sanity_client/src/sanity_config.dart';
 import 'package:dart_sanity_client/src/assets.dart';
 import 'package:dart_sanity_client/src/uri_builder.dart';
 
+/// DartSanityClient class used for fetch(), urlFor(), and action()
 class DartSanityClient {
+  /// sanity configuration object.
   final SanityConfig config;
+  // ignore: public_member_api_docs
   http.Client httpClient;
 
+  /// create a dart sanity client instance using a SanityConfig object
   DartSanityClient(
     this.config, {
     final http.Client? httpClient,
     // we need to init the http client for it to actually work.
   }) : httpClient = httpClient ?? http.Client();
-  // groq queries
+
+  /// run groq and soon graphql queries
   Future<dynamic> fetch(final String query) async {
     final Uri uri = URI_Builder(config: config).query(query);
     final http.Response response = await httpClient.get(uri);
