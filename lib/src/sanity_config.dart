@@ -1,13 +1,13 @@
-/// sanity perspective enum
-enum Perspective {
+/// sanity static class getter for perspective
+class Perspective {
   /// get all published documents
-  published,
+  static String get published => 'published';
 
   /// get all published and unpublished documents
-  previewDrafts,
+  static String get previewDrafts => 'previewDrafts';
 
   /// get all published, unpublished, and meta information
-  raw,
+  static String get raw => 'raw';
 }
 
 /// Sanity API configuration object
@@ -19,7 +19,7 @@ class SanityConfig {
   final String dataset;
 
   /// sanity perspective(defaults to Perspective.published)
-  final Perspective perspective;
+  final String perspective = Perspective.published;
 
   /// API authenticated token
   final String? token;
@@ -32,7 +32,10 @@ class SanityConfig {
   final String apiVersion;
 
   /// sets a tag to all queries
-  final String? tag;
+  final String? requestTagPrefix;
+
+  /// lets the client know that the user plans on using graphql in fetch over groq
+  final bool graphql;
 
   /// latest sanity http API version
   static final String defaultApiVersion = (() {
@@ -51,13 +54,13 @@ class SanityConfig {
     required this.projectId,
     required this.dataset,
     this.token,
-    Perspective? perspective = Perspective.published,
-    bool? useCdn = true,
+    perspective,
+    bool? useCdn,
     String? apiVersion,
-    this.tag,
+    this.graphql = false,
+    this.requestTagPrefix,
   })  : useCdn = useCdn ?? true,
-        apiVersion = apiVersion ?? defaultApiVersion,
-        perspective = perspective ?? Perspective.published {
+        apiVersion = apiVersion ?? defaultApiVersion {
     assert(RegExp(r'^v\d{4}-\d{2}-\d{2}$').hasMatch(this.apiVersion),
         'Invalid API version provided. It should follow the format `vYYYY-MM-DD`');
   }

@@ -20,10 +20,23 @@ class DartSanityClient {
     // we need to init the http client for it to actually work.
   }) : httpClient = httpClient ?? http.Client();
 
-  /// run groq and soon graphql queries
-  Future<dynamic> fetch(final String query) async {
-    final Uri uri = URI_Builder(config: config).query(query);
-    final http.Response response = await httpClient.get(uri);
+  /// run groq of graphql queries
+  /// pass authorized: true to fetch using the token
+  Future<dynamic> fetch(
+    final String query, {
+    bool authorized = false,
+  }) async {
+    final Uri uri = URI_Builder(config: config).query(
+      query,
+      params: {'perspective': config.perspective},
+    );
+    final http.Response response = await httpClient.get(
+      uri,
+      headers: {
+        if (config.token != null && authorized)
+          'Authorization': 'Bearer ${config.token}',
+      },
+    );
     return _returnResponse(response);
   }
 

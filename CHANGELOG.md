@@ -32,3 +32,15 @@
 
 - added all missing api documentation
 - fixed all linting warnings
+
+## 0.4.0
+
+*bugs*
+- fixed an issue where the perspective was never being set in the fetch request
+- fixed an issue where the tag was never being set in the uri builder
+- fixed an issue where the token would not be passed ever to the fetch request if it was supplied.
+
+*new*
+- graphql support has been added via a new config parameter `graphql: true`
+- gave fetch a new parameter `authorized: true` to force the fetch request to use the token.
+- changed the `tag` parameter to `requestTagPrefix` to match the official client config. this now properly appends the tag to the fetch request for logging perpuses.

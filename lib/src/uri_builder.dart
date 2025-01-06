@@ -52,11 +52,16 @@ class URI_Builder {
       'query': query,
       if (params != null) ...params,
     };
+    if (config.requestTagPrefix != null) {
+      queryParameters['tag'] = config.requestTagPrefix;
+    }
+    final String host = config.useCdn ? 'apicdn.sanity.io' : 'api.sanity.io';
+    final String queryType = config.graphql ? 'graphql' : 'data/query';
+
     return Uri(
       scheme: 'https',
-      host:
-          '${config.projectId}.${config.useCdn ? 'apicdn.sanity.io' : 'api.sanity.io'}',
-      path: '/${config.apiVersion}/data/query/${config.dataset}',
+      host: '${config.projectId}.$host',
+      path: '/${config.apiVersion}/$queryType/${config.dataset}',
       queryParameters: queryParameters,
     );
   }

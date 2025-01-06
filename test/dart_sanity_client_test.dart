@@ -15,6 +15,7 @@ void main() async {
     SanityConfig(
       dataset: env['dataset'] ?? '',
       projectId: env['projectId'] ?? '',
+      requestTagPrefix: 'hello',
     ),
   );
 
