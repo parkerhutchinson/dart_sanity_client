@@ -13,6 +13,7 @@ If you're like me and were disappointed to find that Sanity doesn't have an offi
 * optional token for fetch requests.
 * included cdn ref decoders for file and image.
 * urlFor() method that nearly 1:1 mimics the JS client with full image parameter support.
+* groq and graphql support
 
 ## Getting started
 
@@ -63,10 +64,11 @@ final client = DartSanityClient(
 final results = await client.fetch('*[_type == "post"]{title}');
 ```
 
-The client defaults to `apicdn.sanity.io` but you can opt out of this by setting apiCdn to `false`. 
+The client defaults to `apicdn.sanity.io` but you can opt out of this by setting apiCdn to `false`.
+
+GraphQL is also supported, you'll need to set `graphQl: true` in the SanityConfig constructor. All fetch requests from that point on will use the graphql endpoint. **NOTE:** you must first deploy your graphql enabled sanity studio, see official [docs on setting up graphql](https://www.sanity.io/docs/graphql#3af0194e8e42). Additionally if you have [multiple GraphQL datasets using tags](https://www.sanity.io/docs/graphql#e2e900be2233), you can tell the query to use a particular one by setting `graphQlTag: "foo"` in the fetch method.
 
 ### Assets
-
 When writing groq queries you often get back asset refs instead of actually asset files. Or maybe you need to use the image api to manipulate the image to be blurry or rotated, `urlFor()` has you covered.
 
 ```dart

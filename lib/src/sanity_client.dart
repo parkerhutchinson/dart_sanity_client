@@ -25,9 +25,11 @@ class DartSanityClient {
   Future<dynamic> fetch(
     final String query, {
     bool authorized = false,
+    String? graphQlTag,
   }) async {
     final Uri uri = URI_Builder(config: config).query(
       query,
+      graphQlTag: graphQlTag,
       params: {'perspective': config.perspective},
     );
     final http.Response response = await httpClient.get(

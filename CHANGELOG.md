@@ -41,6 +41,7 @@
 - fixed an issue where the token would not be passed ever to the fetch request if it was supplied.
 
 *new*
-- graphql support has been added via a new config parameter `graphql: true`
+- graphql support has been added via a new config parameter `graphQl: true`
 - gave fetch a new parameter `authorized: true` to force the fetch request to use the token.
 - changed the `tag` parameter to `requestTagPrefix` to match the official client config. this now properly appends the tag to the fetch request for logging perpuses.
+- graphql support also includes a new parameter to fetch which sets the graphql tag for the query. graphQlTag: 'foo' will query the graphql dataset with the foo tag associated with it. https://www.sanity.io/docs/graphql#e2e900be2233 

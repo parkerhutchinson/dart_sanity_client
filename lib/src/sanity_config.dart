@@ -35,7 +35,7 @@ class SanityConfig {
   final String? requestTagPrefix;
 
   /// lets the client know that the user plans on using graphql in fetch over groq
-  final bool graphql;
+  final bool graphQl;
 
   /// latest sanity http API version
   static final String defaultApiVersion = (() {
@@ -57,7 +57,7 @@ class SanityConfig {
     perspective,
     bool? useCdn,
     String? apiVersion,
-    this.graphql = false,
+    this.graphQl = false,
     this.requestTagPrefix,
   })  : useCdn = useCdn ?? true,
         apiVersion = apiVersion ?? defaultApiVersion {

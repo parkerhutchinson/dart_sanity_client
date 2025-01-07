@@ -47,6 +47,7 @@ class URI_Builder {
   Uri query(
     String query, {
     Map<String, dynamic>? params,
+    String? graphQlTag,
   }) {
     final Map<String, dynamic> queryParameters = {
       'query': query,
@@ -56,12 +57,15 @@ class URI_Builder {
       queryParameters['tag'] = config.requestTagPrefix;
     }
     final String host = config.useCdn ? 'apicdn.sanity.io' : 'api.sanity.io';
-    final String queryType = config.graphql ? 'graphql' : 'data/query';
+    final String queryType = config.graphQl ? 'graphql' : 'data/query';
+    final String graphqlTagString =
+        config.graphQl && graphQlTag != null ? '/$graphQlTag' : '';
 
     return Uri(
       scheme: 'https',
       host: '${config.projectId}.$host',
-      path: '/${config.apiVersion}/$queryType/${config.dataset}',
+      path:
+          '/${config.apiVersion}/$queryType/${config.dataset}$graphqlTagString',
       queryParameters: queryParameters,
     );
   }
