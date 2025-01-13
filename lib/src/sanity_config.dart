@@ -37,6 +37,9 @@ class SanityConfig {
   /// lets the client know that the user plans on using graphql in fetch over groq
   final bool graphQl;
 
+  /// makes it so the client can stream data live using observables
+  final bool live;
+
   /// latest sanity http API version
   static final String defaultApiVersion = (() {
     final today = DateTime.now();
@@ -59,6 +62,7 @@ class SanityConfig {
     String? apiVersion,
     this.graphQl = false,
     this.requestTagPrefix,
+    this.live = false,
   })  : useCdn = useCdn ?? true,
         apiVersion = apiVersion ?? defaultApiVersion {
     assert(RegExp(r'^v\d{4}-\d{2}-\d{2}$').hasMatch(this.apiVersion),

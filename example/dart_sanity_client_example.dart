@@ -21,9 +21,11 @@ Future<dynamic> main() async {
   // client init
   final DartSanityClient client = DartSanityClient(
     SanityConfig(
-        dataset: env['dataset'] ?? '',
-        projectId: env['projectId'] ?? '',
-        apiVersion: "vX"),
+      dataset: env['dataset'] ?? '',
+      projectId: env['projectId'] ?? '',
+      apiVersion: "vX",
+      live: true,
+    ),
   );
 
   final String query = 'asdf';
