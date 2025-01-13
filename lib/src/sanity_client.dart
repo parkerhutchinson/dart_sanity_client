@@ -32,6 +32,7 @@ class DartSanityClient {
       graphQlTag: graphQlTag,
       params: {'perspective': config.perspective},
     );
+    print(uri);
     final http.Response response = await httpClient.get(
       uri,
       headers: {
