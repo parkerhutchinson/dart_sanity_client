@@ -1,10 +1,13 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:dart_sanity_client/src/file_decoder.dart';
 import 'package:http/http.dart' as http;
 import 'package:dart_sanity_client/src/http_response.dart';
 import 'package:dart_sanity_client/src/sanity_config.dart';
 import 'package:dart_sanity_client/src/assets.dart';
 import 'package:dart_sanity_client/src/uri_builder.dart';
+
+class ParseDataStream {}
 
 /// DartSanityClient class used for fetch(), urlFor(), and action()
 class DartSanityClient {
@@ -32,14 +35,64 @@ class DartSanityClient {
       graphQlTag: graphQlTag,
       params: {'perspective': config.perspective},
     );
-    final http.Response response = await httpClient.get(
+
+    final dynamic response = await httpClient.get(
       uri,
       headers: {
         if (config.token != null && authorized)
           'Authorization': 'Bearer ${config.token}',
       },
     );
+
     return _returnResponse(response);
+  }
+
+  Stream live(
+    final String query, {
+    bool authorized = false,
+  }) async* {
+    final Uri uri = URI_Builder(config: config).query(
+      query,
+      params: {'perspective': config.perspective},
+    );
+    final request = http.Request("GET", uri);
+
+    request.headers
+        .addAll(<String, String>{'Authorization': 'Bearer ${config.token}'});
+
+    final http.StreamedResponse response = await httpClient.send(request);
+
+    int startIndex = -1;
+    int endIndex = -1;
+
+    List<int> buf = [];
+    String? processData(dynamic data, int endIndex, int startIndex) {
+      for (var i = 0; i < data.length - 1; i++) {
+        if (data[i] == 0xff && data[i + 1] == 0xd8) {
+          startIndex = buf.length + i;
+        }
+        if (data[i] == 0xff && data[i + 1] == 0xd9) {
+          endIndex = buf.length + i;
+        }
+      }
+
+      if (data != 10) {
+        buf.addAll(data);
+      }
+
+      /// someone smarter than I will need to come up with a safer way of returning
+      /// the chunked out value. since this seems to return a butt load of linebreaks and spaces
+      /// but for now this magic number seems to work.
+      return buf.length <= 40 ? null : utf8.decode(buf).trim();
+    }
+
+    yield* response.stream.asyncMap(
+      (data) async => processData(
+        data,
+        startIndex,
+        endIndex,
+      ),
+    );
   }
 
   /// Image and File asset url builder. simply supply the image or file ref id and

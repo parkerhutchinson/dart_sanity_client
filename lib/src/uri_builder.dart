@@ -57,7 +57,11 @@ class URI_Builder {
       queryParameters['tag'] = config.requestTagPrefix;
     }
     final String host = config.useCdn ? 'apicdn.sanity.io' : 'api.sanity.io';
-    final String queryType = config.graphQl ? 'graphql' : 'data/query';
+    final String queryType = config.graphQl
+        ? 'graphql'
+        : config.live
+            ? 'data/live/events'
+            : 'data/query';
     final String graphqlTagString =
         config.graphQl && graphQlTag != null ? '/$graphQlTag' : '';
 

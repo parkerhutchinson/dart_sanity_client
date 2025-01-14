@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:dotenv/dotenv.dart';
@@ -24,13 +25,17 @@ Future<dynamic> main() async {
       dataset: env['dataset'] ?? '',
       projectId: env['projectId'] ?? '',
       apiVersion: "vX",
+      token: env['token'] ?? '',
+      useCdn: false,
       live: true,
     ),
   );
 
-  final String query = 'asdf';
-  // fetch query using GROQ
-  final dynamic results = await client.fetch(query);
+  final String query = '*[_type == "todo"]';
+  final subscription = client.live(query, authorized: true);
 
-  prettyPrintJson(results);
+  subscription.listen((d) {
+    final testingJsonValue = jsonEncode(d);
+    print(testingJsonValue);
+  });
 }
